@@ -24,14 +24,12 @@ public class LoggingAspect {
 
     @Before("applicationPackagePointcut()")
     public void logBefore(JoinPoint joinPoint) {
-        log.info("Enter: {}.{}() with argument[s] = {}", joinPoint.getSignature().getDeclaringTypeName(),
-                joinPoint.getSignature().getName(), Arrays.toString(joinPoint.getArgs()));
+        log.info("Enter: {}.{}() ", joinPoint.getTarget().getClass().getSimpleName(), joinPoint.getSignature().getName());
     }
 
-    @AfterReturning(pointcut = "applicationPackagePointcut()", returning = "result")
-    public void logAfterReturning(JoinPoint joinPoint, Object result) {
-        log.info("Exit: {}.{}() with result = {}", joinPoint.getSignature().getDeclaringTypeName(),
-                joinPoint.getSignature().getName(), result);
+    @AfterReturning(pointcut = "applicationPackagePointcut()")
+    public void logAfterReturning(JoinPoint joinPoint) {
+        log.info("Exit: {}.{}() ", joinPoint.getTarget().getClass().getSimpleName(), joinPoint.getSignature().getName());
     }
 
 }
