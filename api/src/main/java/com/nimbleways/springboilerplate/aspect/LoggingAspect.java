@@ -19,7 +19,7 @@ public class LoggingAspect {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Pointcut("within(@org.springframework.stereotype.Service *) || within(@org.springframework.stereotype.Controller *)")
+    @Pointcut("@annotation(com.nimbleways.springboilerplate.annotation.Loggable)")
     public void applicationPackagePointcut() {}
 
     @Before("applicationPackagePointcut()")
