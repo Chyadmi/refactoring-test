@@ -32,6 +32,16 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(InvalidProductTypeException.class)
+    public ResponseEntity<Object> handleInvalidProductTypeException(InvalidProductTypeException exception) {
+        LOGGER.error("Invalid product type: ", exception);
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", exception.getMessage());
+
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
 
 
 

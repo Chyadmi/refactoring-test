@@ -3,6 +3,7 @@ package com.nimbleways.springboilerplate.services.implementations.impl;
 
 import com.nimbleways.springboilerplate.entities.Product;
 import com.nimbleways.springboilerplate.repositories.ProductRepository;
+import com.nimbleways.springboilerplate.services.implementations.NotificationService;
 import com.nimbleways.springboilerplate.services.implementations.ProductService;
 
 public abstract class AbstractProductService implements ProductService {
@@ -11,13 +12,13 @@ public abstract class AbstractProductService implements ProductService {
     protected final NotificationService notificationService;
 
 
-    public AbstractProductService(ProductRepository productRepository, NotificationService notificationService) {
+    protected AbstractProductService(ProductRepository productRepository, NotificationService notificationService) {
         this.productRepository = productRepository;
         this.notificationService = notificationService;
     }
 
     protected void decrementProductAvailability(Product product) {
-        if (product.getAvailable() > 0) {
+        if (isProductAvailable(product)) {
             product.setAvailable(product.getAvailable() - 1);
             productRepository.save(product);
         }
